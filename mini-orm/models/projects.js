@@ -12,7 +12,7 @@ class Projects {
 
   static findAll() {
     return new Promise((resolve, reject) => {
-      db.run(`SELECT * FROM projects`, (err, rows_projects) => {
+      db.all(`SELECT * FROM projects`, (err, rows_projects) => {
         if(!err){
           let projects = rows_projects.map(p => new Projects(p))
           resolve(projects)
@@ -23,14 +23,52 @@ class Projects {
     })
   }
 
-  static findById() {}
+  static findById(id) {
+    return new Promise((resolve, reject) => {
+      db.all(`SELECT * FROM projects WHERE id = ${id}`, (err, projects) => {
+        if(!err){
+          resolve(projects)
+        } else {
+          reject(err)
+        }
+      })
+    })
+  }
 
-  static findWhere() {}
+  static findWhere(field, value) {
+    return new Promise((resolve, reject) => {
+      db.all(`SELECT * FROM projects WHERE ${field} = ${value}`, (err, projects) => {
+        if(!err){
+          resolve(projects)
+        } else {
+          reject(err)
+        }
+      })
+    })
 
-  static create() {}
+  }
+
+
+  static create(data_projects) {
+    //insert
+    return new Promise((resolve, reject) => {
+      db.run(`INSERT INTO projects (nama_project,status)
+        VALUES ('${data_projects.nama_project}','${data_projects.status}')`, (err) => {
+        if(!err){
+          resolve('INSERT SUCCESS')
+        } else {
+          reject(err)
+        }
+      })
+    })
+  }
 
   static update() {}
 
   static destroy() {}
 
 }
+
+
+
+module.exports = Projects
