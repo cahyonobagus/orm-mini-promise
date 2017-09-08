@@ -63,7 +63,22 @@ class Projects {
     })
   }
 
-  static update() {}
+  static update(data_projects) {
+    return new Promise((resolve, reject) => {
+      let sql = `UPDATE projects SET
+        nama_project = '${data_projects.nama_project}',
+        status = '${data_projects.status}',
+        WHERE id = ${data_projects.id}`
+      console.log(sql);
+      // db.run(sql, (err) => {
+      //   if(!err){
+      //     resolve('UPDATE SUCCESS')
+      //   } else {
+      //     reject(err)
+      //   }
+      // })
+    })
+  }
 
   static destroy() {}
 

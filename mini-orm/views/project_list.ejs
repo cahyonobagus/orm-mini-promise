@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DATA PROECTS</title>
+  </head>
+  <body>
+    <h1>DATA PROJECTS</h1>
+      <table border = '1'>
+        <tr>
+          <td>ID</td>
+          <td>NAMA PROJECT</td>
+          <td>STATUS</td>
+          <td>ACTION</td>
+        </tr>
+        <% data_projects.forEach( row => { %>
+        <tr>
+          <td><%= row.id%></td>
+          <td><%= row.nama_project%></td>
+          <td><%= row.status%></td>
+          <td>
+            <a href="/projects/update/<%= row.id%>">EDIT</a> |
+            <a href="/projects/delete/<%= row.id%>">DELETE</a>
+          </td>
+        </tr>
+        <% })%>
+      </table>
+
+      <a href="/projects/add">ADD Project</a>
+  </body>
+</html>

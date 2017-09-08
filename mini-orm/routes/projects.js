@@ -15,9 +15,14 @@ router.get('/', (req, res) => {
   res.render('project_index')
 })
 
-
 router.get('/list', (req, res) => {
-  res.send('data list projects')
+  Model_projects.findAll()
+    .then(data_projects => {
+      res.render('project_list', {data_projects: data_projects})
+    })
+    .catch(err => {
+      console.log(err);
+    })
 })
 
 router.get('/add',(req, res) => {
@@ -27,7 +32,7 @@ router.get('/add',(req, res) => {
 router.post('/add',(req, res) => {
   // insert
   let data_projects = {
-    nama_project: `${req.body.status}`,
+    nama_project: `${req.body.nama_project}`,
     status: `${req.body.status}`
   }
   Model_projects.create(data_projects)
@@ -40,12 +45,30 @@ router.post('/add',(req, res) => {
 })
 
 router.get('/update/:id',(req, res) => {
+  Model_projects.findById(req.params.id)
+    .then(project => {
+      // res.send(project)
+      res.render('project_edit', {data_project : project})
+    })
+    .catch(err => {
+      console.log(err);
+    })
 
-  // res.render('index')
 })
 
-router.get('/update/:id',(req, res) => {
-  // res.render('index')
+router.post('/update/:id',(req, res) => {
+  let data_projects = {
+    id: `${req.params.id}`,
+    nama_project: `${req.body.nama_project}`,
+    status: `${req.body.status}`
+  }
+  Model_projects.update(data_projects)
+    .then(string_success => {
+      res.redirect('/projects/list')
+    })
+    .catch(err => {
+      console.log(err);
+    })
 })
 //
 
