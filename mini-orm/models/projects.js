@@ -67,20 +67,36 @@ class Projects {
     return new Promise((resolve, reject) => {
       let sql = `UPDATE projects SET
         nama_project = '${data_projects.nama_project}',
-        status = '${data_projects.status}',
+        status = '${data_projects.status}'
         WHERE id = ${data_projects.id}`
-      console.log(sql);
-      // db.run(sql, (err) => {
-      //   if(!err){
-      //     resolve('UPDATE SUCCESS')
-      //   } else {
-      //     reject(err)
-      //   }
-      // })
+      // console.log(sql);
+      db.run(sql, (err) => {
+        if(!err){
+          resolve('UPDATE SUCCESS')
+        } else {
+          reject(err)
+        }
+      })
     })
   }
 
-  static destroy() {}
+  static destroy(id) {
+    //delete
+    return new Promise((resolve, reject) => {
+      let sql = `DELETE FROM projects WHERE id = ${id}`
+      // console.log(sql);
+      db.run(sql, (err) => {
+        if(!err){
+          resolve('DELETE SUCCESS')
+        } else {
+          reject(err)
+        }
+      })
+    })
+
+
+
+  }
 
 }
 

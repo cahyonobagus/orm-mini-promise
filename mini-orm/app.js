@@ -10,12 +10,12 @@ app.set('view engine', 'ejs')
 // require rfile routes
 let index = require('./routes/index.js')
 let projects = require('./routes/projects.js')
-// let supervisors = require('./routes/supervisors.js')
+let supervisors = require('./routes/supervisors.js')
 
 // routing
 app.use('/', index);
 app.use('/projects', projects);
-// app.use('/supervisors', supervisors);
+app.use('/supervisors', supervisors);
 
 
 

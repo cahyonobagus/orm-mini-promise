@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DATA SUPERVISORS</title>
+  </head>
+  <body>
+    <h1>DATA SUPERVISORS</h1>
+      <table border = '1'>
+        <tr>
+          <td>ID</td>
+          <td>NAMA</td>
+          <td>EMAIL</td>
+          <td>ACTION</td>
+        </tr>
+        <% data_supervisors.forEach( row => { %>
+        <tr>
+          <td><%= row.id%></td>
+          <td><%= row.nama%></td>
+          <td><%= row.email%></td>
+          <td>
+            <a href="/supervisors/update/<%= row.id%>">EDIT</a> |
+            <a href="/supervisors/delete/<%= row.id%>">DELETE</a> |
+            <a href="/supervisors/<%= row.id%>/asign_project">ASIGN PROJECT</a>
+          </td>
+        </tr>
+        <% })%>
+      </table>
+
+      <a href="/supervisors/add">ADD Supervisors</a>
+  </body>
+</html>

@@ -25,6 +25,12 @@ router.get('/list', (req, res) => {
     })
 })
 
+
+
+
+
+
+
 router.get('/add',(req, res) => {
   res.render('projects_add')
 })
@@ -72,6 +78,15 @@ router.post('/update/:id',(req, res) => {
 })
 //
 
+router.get('/delete/:id',(req, res) => {
+  Model_projects.destroy(req.params.id)
+    .then(string_success => {
+      res.redirect('/projects/list')
+    })
+    .catch(err => {
+      console.log(err);
+    })
 
+})
 
 module.exports = router;
