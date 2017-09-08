@@ -35,7 +35,7 @@ class Projects {
     })
   }
 
-  static findWhere(field, value) {
+  static find_where(field, value) {
     return new Promise((resolve, reject) => {
       db.all(`SELECT * FROM projects WHERE ${field} = ${value}`, (err, projects) => {
         if(!err){
@@ -73,6 +73,22 @@ class Projects {
       db.run(sql, (err) => {
         if(!err){
           resolve('UPDATE SUCCESS')
+        } else {
+          reject(err)
+        }
+      })
+    })
+  }
+
+  static assign_spv_id(data_projects) {
+    return new Promise((resolve, reject) => {
+      let sql = `UPDATE projects SET
+        spv_id = ${data_projects.spv_id}
+        WHERE id = ${data_projects.id}`
+      // console.log(sql);
+      db.run(sql, (err) => {
+        if(!err){
+          resolve('ASSIGN SUCCESS')
         } else {
           reject(err)
         }

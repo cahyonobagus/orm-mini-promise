@@ -9,9 +9,9 @@
     <form class="" action="/projects/update/<%= data_project[0].id%>" method="post">
       <input type="text" name="nama_project" value="<%= data_project[0].nama_project%>" placeholder="nama project">
       <select class="" name="status">
-        <option value="planning">planning</option>
-        <option value="on progress">on progress</option>
-        <option value="done">done</option>
+        <option value="planning" <% if (data_project[0].status == 'planning') { %> selected <% } %> >planning</option>
+        <option value="on progress" <% if (data_project[0].status == 'on progress') { %> selected <% } %>>on progress</option>
+        <option value="done" <% if (data_project[0].status == 'done') { %> selected <% } %>>done</option>
       </select>
       <!-- <input type="text" name="status" value="" placeholder="status"> -->
       <input type="submit"  value="Save" >

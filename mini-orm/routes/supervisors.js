@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Model_supervisors = require('../models/supervisors.js')
-const Model_projects = require('./projects.js')
+const Model_projects = require('../models/projects.js')
 
 // routes projects
 // /project
@@ -13,7 +13,8 @@ const Model_projects = require('./projects.js')
 //   GET  /delete/:id  * untuk handle delete project
 
 router.get('/', (req, res) => {
-  res.render('supervisors_index')
+  // res.render('supervisors_index')
+  res.redirect('/supervisors/list')
 })
 
 router.get('/list', (req, res) => {
@@ -26,23 +27,52 @@ router.get('/list', (req, res) => {
     })
 })
 
+// route asign_project of contact
+router.get('/:id/assign_project',(req, res)=>{
+  // res.send(req.params.id)
+  Model_supervisors.findById(req.params.id)
+    .then(supervisor => {
+      Model_projects.find_where('spv_id',supervisor[0].id)
+        .then(projects => {
+          // res.send(addresses)
+            Model_projects.findAll()
+              .then(projects_options => {
 
-// router.get('/:id/asign_project', (req, res) => {
-//   // res.send('ok')
-//   Model_supervisors.findAll()
-//     .then(supervisors => {
-//
-//       Model_projects.findById(supervisors.id)
-//     })
-//     .catch(err){
-//       console.log(err);
-//     }
-//   // res.render('supervisors_index')
-// })
+                res.render('show_add_project', {data_supervisors: supervisor, data_projects: projects,
+                   projects_options : projects_options})
+              })
+
+          // res.send({data_supervisors: supervisor, data_projects: projects})
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    })
+    .catch(err => {
+      console.log(err);
+      // res.render('error_page')
+      // res.send(err)
+    })
+
+})
 
 
+// Cannot POST /1/assign_project
+router.post('/:id/assign_project', (req, res) => {
+  // post to projects
+  let data_projects = {
+    spv_id: `${req.params.id}`,
+    id: `${req.body.project_id}`
+  }
+  Model_projects.assign_spv_id(data_projects)
+    .then( string_success => {
+      res.redirect('/supervisors/list')
+    })
+    .catch(err => {
+      console.log(err);
+    })
 
-
+})
 
 router.get('/add',(req, res) => {
   res.render('supervisors_add')

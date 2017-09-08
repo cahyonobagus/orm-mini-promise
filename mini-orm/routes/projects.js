@@ -12,7 +12,8 @@ const Model_projects = require('../models/projects.js')
 //   GET  /delete/:id  * untuk handle delete project
 
 router.get('/', (req, res) => {
-  res.render('project_index')
+  // res.render('project_index')
+  res.redirect('/projects/list')
 })
 
 router.get('/list', (req, res) => {
@@ -24,11 +25,6 @@ router.get('/list', (req, res) => {
       console.log(err);
     })
 })
-
-
-
-
-
 
 
 router.get('/add',(req, res) => {

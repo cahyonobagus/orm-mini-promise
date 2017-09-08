@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>SHOW / ASIGN PROJECTS </title>
+  </head>
+  <body>
+    <h1>LIST PROJECTS</h1>
+    Nama Supervisors :
+    <%= data_supervisors[0].nama%>
+    <br>
+    Projects : <br><br>
+    <%
+      if(data_projects.length > 0){
+        data_projects.forEach( row => {
+    %>
+    <%= row.nama_project %>
+    <br>
+    <% })
+      } else { %>
+        <p>Supervisors has no projects</p>
+    <% } %>
+    <br>
+    <hr>
+
+    <h1>ASSIGN PROJECT</h1>
+    <!-- pilihan project -->
+    Add a project to the supervisors : <br><br>
+    <form class="" action="/supervisors/<%= data_supervisors[0].id%>/assign_project" method="post">
+      <select class="" name="project_id">
+        <% projects_options.forEach(row => { %>
+        <option value="<%=row.id%>"><%=row.nama_project%></option>
+        <% }) %>
+      </select>
+      <input type="submit" value="ASSIGN">
+    </form>
+
+
+  </body>
+</html>
